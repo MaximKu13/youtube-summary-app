@@ -1,0 +1,17 @@
+model Subscription {
+  id           Int      @id @default(autoincrement())
+  channelId    String   @unique
+  channelName  String
+  thumbnailUrl String
+  subscribedAt DateTime @default(now())
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id             Int             @id @default(autoincrement())
+  email          String          @unique
+  password       String
+  subscriptions  Subscription[]  // Reverse relation to Subscription
+  createdAt      DateTime        @default(now())
+}
